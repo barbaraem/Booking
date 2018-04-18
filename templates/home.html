@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% for treatment in price_list %}
+     <a href="/booking/{{ treatment.id }}">{{ treatment.name }}</a>
+      {{ treatment.price}}<br>
+  {% endfor%}
+
+
+{% csrf_token %}
+
+<a href="/add_client">Zarejestruj</a> <br>
+<a href="/user_login">Zaloguj</a> <br>
+<a href="/add_treatment">Dodaj zabieg</a><br>
+{% endblock %}
+

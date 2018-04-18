@@ -8,16 +8,12 @@ from django.db import models
 class Treatment(models.Model):
     name = models.CharField(max_length=255)
     price = models.IntegerField()
-    duration = models.DurationField()
+    duration = models.DurationField() #może zmień na choice _field
 
 
 class Booking(models.Model):
     date = models.DateTimeField()
     treatment = models.ForeignKey(Treatment)
-    user = models.ForeignKey("Client")
+    user = models.ForeignKey(User) # może dodaj checkbox, że wyraża zgodę na użycie telefonu
 
-
-class Client(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone_number = models.IntegerField()
 
