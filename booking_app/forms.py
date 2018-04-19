@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 
-from booking_app.models import Treatment
+from booking_app.models import Treatment, Booking
 from django import forms
 import re
+from bootstrap_datepicker.widgets import DatePicker
 
 
 class AddClientForm(forms.Form):
@@ -18,7 +19,6 @@ class AddClientForm(forms.Form):
         pattern = r"^\d{9}$"
         if not re.match(pattern, number):
             raise forms.ValidationError("Podaj poprawny numer")
-
         return number
 
 
@@ -27,12 +27,45 @@ class AddTreatmentForm(forms.ModelForm):
         model = Treatment
         fields = "__all__"
 
+
 class ClientLoginForm(forms.Form):
     username = forms.IntegerField(label="nr telefonu")
     password = forms.CharField(label="hasło", widget=forms.PasswordInput)
 
 
-        # czy zmienić to i dodać whidgeta na password????
+class BookingForm(forms.Form):
+
+    choices = (
+        ("11:00", "11:00"),
+        ("13:00", "13:00"),
+        ("14:00", "14:00"))
+
+
+    date = forms.DateField(widget=DatePicker(
+            options={
+                "maxViewMode": 0,
+                "todayBtn": True,
+                "language": "pl",
+                "daysOfWeekDisabled": "0,6",
+                "daysOfWeekHighlighted": "1,2,3,4,5",
+                "calendarWeeks": True,
+                "todayHighlight": True,
+                "format": "yyyy-mm-dd",
+                "autoclose": True
+            }
+        ))
+    time = forms.ChoiceField(widget= forms.Select, choices=choices)
+
+
+
+
+
+
+
+"""
+ # czy zmienić to i dodać whidgeta na password????
         # password = forms.CharField(label = "password", widget=forms.PasswordInput)
 
  # number= filter(lambda x: x.isdigit(), number)
+"""
+

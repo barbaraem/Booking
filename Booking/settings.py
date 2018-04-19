@@ -25,6 +25,17 @@ SECRET_KEY = '+#5i1i)a50e%_1+08n1zp3rf25-&j&6qy@zdknw%k1cpq#-t0!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+# Twilio API
+TWILIO_NUMBER = os.environ.get('TWILIO_NUMBER')
+
+# Address of Redis instance, our Celery broker
+BROKER_URL = 'redis://localhost:6379/0'
+BROKER_POOL_LIMIT = 8
+
+# Reminder time: how early text messages are sent in advance of appointments
+REMINDER_TIME = 30 # minutes
+
 ALLOWED_HOSTS = []
 
 
@@ -38,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'booking_app',
+    "bootstrapform",
 ]
 
 MIDDLEWARE = [

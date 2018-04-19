@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+
+{% load static %}
+{% load bootstrap %}
+
+
+{% block content %}
+
+
+   <form action="" method="post">
+      {{ form|bootstrap }}
+      {% csrf_token %}
+
+        <input type="submit" value="Umów" />
+    </form>
+
+
+
+{% endblock %}
+

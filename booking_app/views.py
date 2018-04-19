@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -11,7 +11,7 @@ from dateparser import parse
 from django.views.generic.base import View
 
 
-from booking_app.forms import AddClientForm, AddTreatmentForm, ClientLoginForm
+from booking_app.forms import AddClientForm, AddTreatmentForm, ClientLoginForm, BookingForm
 from booking_app.models import Booking, Treatment
 
 
@@ -99,43 +99,68 @@ class BookingView(View):
         bookings= Booking.objects.all()
         treatment= Treatment.objects.get(id=treatment_id)
 
-        return render(request, "booking.html", {"form":form, "bookings":bookings, "treatment": treatment})
+        return render(request, "booking.html", {"form":form})
 
 
     def post(self, request, treatment_id):
-
-        form = BookingForm()
-        current_date = datetime.now()
-        dates = Booking.objects.filter(date__gte= current_date)
+        form = BookingForm(request.POST)
+        # current_date = datetime.now()
+        # dates = Booking.objects.filter(date__gte= current_date)
 
         if form.is_valid():
             treatment = Treatment.objects.get(id=treatment_id)
             user = request.user
-            booking_date = request.POST.get("date")
-            booking_date = parse(booking_date).datetime()
+            date = request.POST.get("date")
+            # booking_date = parse(booking_date).datetime()
+            time = request.POST.get("time")
 
-            # validation of date back:
-            if booking_date < current_date:
-                message = "wprowadź poprawną datę"
-                return render(request, "booking.html", {"form":form,"dates":dates, "message": message})
+            # # validation of date back:
+            # if booking_date < current_date:
+            #     message = "wprowadź poprawną datę"
+            #     return render(request, "booking.html", {"form":form,"dates":dates, "message": message})
+            #
+            # # validation of double booking:
+            # # if Booking.objects.filter(date = booking_date):
+            # #     return render(request, "booking.html", {"form":form,"dates":dates, "message": "ten termin jest już zajęty!"})
+            #
+            #
+            # # validation of double booking-time
+            # booked_hours = [booking.time for booking in Booking.objects.filter(date= booking_date)]
 
-            # validation of double booking:
-            for date in dates:
-                if date == booking_date:
-                    return render(request, "booking.html", {"form":form,"dates":dates, "message": "ten termin jest już zajęty!"})
-
-            # validation of opening hours:
-            # albo zrobic selecta i wyświetlac tylko dostepne godziny w wybranym dniu
 
 
-            Booking.objects.create(date = booking_date, treatment= treatment, user=user)
+            Booking.objects.create(date = date, time=time, treatment= treatment, user=user)
             return redirect("/home")
         else:
-            return render(request, "booking.html", {"form": form, "dates": dates})
+            print(form.errors)
+            return render(request, "booking.html", {"form": form})
 
 
 # form = PresenceForm(initial={
 #             'day': presence_day})
 
+    # rooms = GetRoom.get_available_room({}).exclude(id__in=self.room_booked)
 
 
+
+    """
+    
+t = datetime.time(1, 2, 3)
+print('t :', t)
+
+d = datetime.date.today()
+print('d :', d)
+
+dt = datetime.datetime.combine(d, t)
+print('dt:', dt)
+
+combine() creates datetime instances from one date and one time instance.
+
+$ python3 datetime_datetime_combine.py
+
+t : 01:02:03
+d : 2018-03-18
+dt: 2018-03-18 01:02:03
+
+
+    """

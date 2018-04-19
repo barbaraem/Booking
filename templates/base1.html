@@ -1,0 +1,38 @@
+{% load static %}
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>Datepicker for Bootstrap</title>
+
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+    <link id="bs-css" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+    <link id="bsdp-css" href="{% static 'contrib/bootstrap-datepicker3.min.css' %}" rel="stylesheet">
+
+
+
+
+    <script src="{% static 'contrib/bootstrap-datepicker.min.js' %}"> </script>
+
+    <script src="{% static 'contrib/bootstrap-datepicker/bootstrap-datepicker.pl.min.js' %}" charset="UTF-8"></script>
+
+
+
+</head>
+
+
+
+
+<body>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+    <div id="footer">
+        <span>{% block footer %}{% endblock %}</span>
+    </div>
+</body>
+</html>
