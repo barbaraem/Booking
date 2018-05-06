@@ -35,37 +35,28 @@ class ClientLoginForm(forms.Form):
 
 class BookingForm(forms.Form):
 
-    choices = (
-        ("11:00", "11:00"),
-        ("13:00", "13:00"),
-        ("14:00", "14:00"))
-
-
     date = forms.DateField(widget=DatePicker(
             options={
                 "maxViewMode": 0,
                 "todayBtn": True,
-                "language": "pl",
-                "daysOfWeekDisabled": "0,6",
-                "daysOfWeekHighlighted": "1,2,3,4,5",
+                "language": "pl-PL",
+                "daysOfWeekDisabled": "0,7",
+                "daysOfWeekHighlighted": "1,2,3,4,5,6",
                 "calendarWeeks": True,
                 "todayHighlight": True,
                 "format": "yyyy-mm-dd",
-                "autoclose": True
+                "autoclose": True,
             }
         ))
-    time = forms.ChoiceField(widget= forms.Select, choices=choices)
+    time = forms.TimeField()
 
 
-
-
+# "YYYY-MM-DD HH:mm",
 
 
 
 """
- # czy zmienić to i dodać whidgeta na password????
-        # password = forms.CharField(label = "password", widget=forms.PasswordInput)
-
+ 
  # number= filter(lambda x: x.isdigit(), number)
 """
 

@@ -1,0 +1,185 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'assets/ico/favicon.ico'%}">
+
+    <title>Wolfram: Company</title>
+
+    <!-- CSS Plugins -->
+    <link rel="stylesheet" href="{% static 'assets/plugins/ionicons/css/ionicons.min.css'%}">
+
+    <!-- CSS Global -->
+    <link rel="stylesheet" href="{% static 'assets/css/theme.css'%}">
+    {% endblock %}
+  </head>
+
+
+  <body data-spy="scroll" data-target="#navbar_main" data-offset="80">
+  {% block content %}
+
+    <!-- PRELOADER
+    ================================================== -->
+    <div class="preloader">
+      <img src="{% static 'assets/img/spinner.svg" alt="Loading..." class="preloader__spinner'%}">
+    </div>
+
+    <!-- NAVBAR
+    ================================================== -->
+    <nav class="navbar navbar-fixed-top navbar-default">
+      <div class="container">
+
+        <!-- Brand name -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar_main" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbar_main">
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active">
+              <a href="/home">Home</a>
+            </li>
+            <li><a href="/add_client">Zarejestruj</a></li>
+            <li><a href="/add_treatment">Dodaj zabieg</a></li>
+            <li><a href="/user_login">Zaloguj</a></li>
+            <li><a href="#section_pricing">Pricing</a></li>
+            <li><a href="#section_testimonials">Testimonials</a></li>
+            <li><a href="#section_news">News</a></li>
+            <li><a href="#section_newsletter">Sign Up</a></li>
+            <li><a href="#section_contact">Contact</a></li>
+          </ul>
+
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+  {% endblock %}
+    </nav>
+
+    <!-- BANNER
+    ================================================== -->
+    {% block banner %}
+    <section class="section_banner" id="section_banner">
+
+
+
+      <!-- Images -->
+      <div class="banner__carousel__img"
+           data-images="{% static 'assets/img/5.jpg'%}">
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+
+            <h1 class="page-header text-white text-left animate-down animate-xs-step-0">
+              UMÓW SIĘ  <br>
+              NA WIZYTĘ W <span>Day Spa</span>
+            </h1>
+            <p class="page-subheader text-white-muted text-left animate-down animate-xs-step-1">
+              Rozpal  swoje zmysły i zrelaksuj się w najlepszym DAY SPA w Poznaniu. Wielokrotnie wyróżniany prestiżowymi nagrodami DAY SPA to 1000m2 relaksu w luksusowych warunkach oraz kompleksowej dbałości o zdrowie i urodę.
+            </p>
+            <div class="text-left">
+              <a href="#section_services" class="btn btn-primary animate-down animate-xs-step-2">
+                Find out more
+              </a>
+            </div>
+
+          </div>
+
+          <div class="col-sm-6 col-lg-4 col-lg-offset-1">
+
+            <div class="banner__form">
+
+              <h3 class="page-header">
+                ZALOGUJ
+              </h3>
+                                  {{ form.errors }}
+                <form method="post">
+                {% csrf_token %}
+                    <div class="form-group">
+                  <label for="name_1">NUMER TELEFONU</label>
+                    <input type="text" name="username" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="email_1">HASŁO</label>
+                  <input type="password" name="password" class="form-control">
+                </div>
+                <button class="btn btn-block btn-primary">ZALOGUJ</button>
+              </form>
+            </div> <!-- / .banner__form -->
+
+          </div>
+        </div> <!-- / .row -->
+      </div> <!-- / .container -->
+
+    </section>
+    {% endblock %}
+     <!-- FOOTER
+    ================================================== -->
+    <footer class="section_footer">
+        {% block footer %}
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-9">
+
+            <p class="footer__copyright">
+              <span id="footer__year">2017</span> &copy; Wolfram theme by <a href="http://simpleqode.com" target="_blank">Simpleqode.com</a> | Purchase via <a href="https://wrapbootstrap.com/theme/wolfram-multipurpose-one-page-template-WB0915821" target="_blank">Wrapbootstrap.com</a>
+            </p>
+
+          </div>
+          <div class="col-sm-3">
+
+            <ul class="footer__social">
+              <li>
+                <a class="twitter" href="#">
+                  <i class="ion-social-twitter"></i>
+                </a>
+              </li>
+              <li>
+                <a class="facebook" href="#">
+                  <i class="ion-social-facebook"></i>
+                </a>
+              </li>
+              <li>
+                <a class="pinterest" href="#">
+                  <i class="ion-social-pinterest"></i>
+                </a>
+              </li>
+            </ul>
+
+          </div>
+        </div> <!-- / .row -->
+      </div> <!-- / .container -->
+        {% endblock %}
+    </footer>
+
+    <!-- JAVASCRIPT
+    ================================================== -->
+
+    <!-- JS Global -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js'%}"></script>
+
+    <!-- JS Plugins -->
+    <script src="{% static 'assets/plugins/smoothscroll/smoothscroll.min.js'%}"></script>
+    <script src="{% static 'assets/plugins/backstretch/jquery.backstretch.min.js'%}"></script>
+    <script src="{% static 'assets/plugins/contact-form/contact.js'%}"></script>
+    <script src="{% static 'assets/plugins/waypoints/jquery.waypoints.min.js'%}"></script>
+
+    <!-- JS Custom -->
+    <script src="{% static 'assets/js/theme.js'%}"></script>
+    <script src="{% static 'assets/js/custom.js'%}"></script>
+
+  </body>
+</html>

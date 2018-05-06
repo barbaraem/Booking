@@ -1,22 +1,120 @@
-{% extends "base.html" %}
-
-
 
 {% load static %}
 {% load bootstrap %}
 
+    <title>Umów wizytę</title>
 
-{% block content %}
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link id="bs-css" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link id="bsdp-css" href="{% static 'contrib/bootstrap-datepicker3.min.css' %}" rel="stylesheet">
+    <script src="{% static 'contrib/bootstrap-datepicker.min.js' %}"> </script>
+    <script src="{% static 'contrib/bootstrap-datepicker/bootstrap-datepicker.pl.min.js' %}" charset="UTF-8"></script>
 
+
+{#<script>#}
+{#$(document).ready(function() {#}
+{#    $('.datepicker').datepicker();});#}
+{#</script>#}
+
+{##}
+{#<html>#}
+{#<body>#}
+{##}
+{#<ul id="myList">#}
+{#  <li>Coffee</li>#}
+{#  <li>Tea</li>#}
+{#</ul>#}
+{##}
+{#<p>Click the button get the HTML content of the ul element.</p>#}
+{##}
+{#<button onclick="myFunction()">Try it</button>#}
+{##}
+{#<p id="demo"></p>#}
+{##}
+{#<script>#}
+{#function myFunction() {#}
+{#    var x = document.getElementById("myList").innerHTML;#}
+{#    document.getElementById("demo").innerHTML = x}#}
+{#</script>#}
+{##}
+{#</body>#}
+{#</html>#}
+
+
+{#connecting bootstrap datepicker with django form:#}
 
    <form action="" method="post">
-      {{ form|bootstrap }}
+
+      {{ form|bootstrap}}
       {% csrf_token %}
 
-        <input type="submit" value="Umów" />
     </form>
 
 
+  <script>
+    $("#id_date").change(function () {
+        var date_ = $(this).val();
 
-{% endblock %}
+        $.get("http://127.0.0.1:8000/apibookings/booking?date=" + date_, function (data) {
+            console.log("sprawdzam czy pobrałam", data);
+            var select = $('<select>');
+            for (var i = 0; i < data.length; i++) {
+                var d = data[i];
+                console.log("DATA ", i, d)
 
+                var option = $('<option>');
+                option.text(d.time);
+
+                select.append(option);
+            }
+
+            $("#time_").append( select );
+
+            console.log("KONIEC");
+            alert("Load was performed.");
+        })
+    });
+
+</script>
+
+
+
+
+{#$('#datetimepicker').data("DateTimePicker").FUNCTION()#}
+
+<body>
+
+        {% csrf_token %}
+        <div id="time_"> </div>
+        <input type="submit" value="Umów wizytę" />
+
+</body>
+
+{#<script>#}
+{#var u = "http://127.0.0.1:8000/apibookings/";#}
+{##}
+{#$.get(u , function(data) {#}
+{#	//pobralismy listę filmów#}
+{#	console.log("POBRAŁEM i zamieniłem na obiekt(y):", data);#}
+{##}
+{#	//biegamy po filmach, dla każdego budujemy instancję DOM#}
+{#	//i doklejamy do #myMovieList#}
+{#	var select = $('<select>');#}
+{#	for(var i=0; i<data.length; i++) {#}
+{#		var d = data[i];#}
+{#		console.log("DATA ", i,  d)#}
+{##}
+{#		var option = $('<option>');#}
+{#		option.text(d.time);#}
+{#		option.text(d.time + ' / ' + d.date);#}
+{##}
+{#		select.append(option);#}
+{#	}#}
+{##}
+{#  $("#time_").append( select );#}
+{##}
+{#  console.log("KONIEC");#}
+{#  alert( "Load was performed." );});#}
+{##}
+{##}
+{#</script>#}

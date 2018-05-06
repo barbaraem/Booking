@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test API</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="time_">
+
+</div>
+
+
+<script>
+var u = "http://127.0.0.1:8000/bookings/";
+
+$.get(u , function(data) {
+	//pobralismy listę filmów
+	console.log("POBRAŁEM i zamieniłem na obiekt(y):", data);
+
+	//biegamy po filmach, dla każdego budujemy instancję DOM
+	//i doklejamy do #myMovieList
+	var select = $('<select>');
+	for(var i=0; i<data.length; i++) {
+		var d = data[i];
+		console.log("DATA ", i,  d)
+
+		var option = $('<option>');
+		option.text(d.time + ' / ' + d.date);
+
+		select.append(option);
+	}
+
+  $("#time_").append( select );
+
+  console.log("KONIEC");
+  alert( "Load was performed." );
+});
+
+
+</script>
+</body>
+</html>

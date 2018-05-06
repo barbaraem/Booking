@@ -40,3 +40,9 @@ class Booking(models.Model):
             current_time += datetime.timedelta(hours=1)
 
         return arr
+
+        # for el in arr:
+        #     if el in Booking.objects.filter(date= request.post.get("date")):
+        #         print("ta data jest zajeta")
+        #     return el
+        #

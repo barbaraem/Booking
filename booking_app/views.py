@@ -5,14 +5,21 @@ from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
+from django_filters.rest_framework import DjangoFilterBackend
 from dateparser import parse
 
 # Create your views here.
 from django.views.generic.base import View
-
+from rest_framework import generics
 
 from booking_app.forms import AddClientForm, AddTreatmentForm, ClientLoginForm, BookingForm
 from booking_app.models import Booking, Treatment
+from booking_app.serializers import BookingSerializer
+
+
+class BaseView(View):
+    def get(self, request):
+        return render (request,"base.html", {})
 
 
 class PriceListView(View):
@@ -38,14 +45,13 @@ class AddClientView(View):
            repeat_password = form.cleaned_data['repeat_password']
 
            if password != repeat_password:
-               message = 'wpisane hasła nie są takie same'
+               message = 'wpisane hasła nie są takie same!!!!'
                return render(request, 'add_client.html', {'form': form,
                                                         'message': message})
            else:
                try:
                    User.objects.create_user(password=password,first_name=first_name,
                                               last_name=last_name, username=username)
-
                    return redirect("/user_login")
 
                except IntegrityError:
@@ -74,7 +80,7 @@ class ClientLoginView(View):
                 login(request,user)
                 return redirect("/home")
             else:
-                return render(request, "user_login.html", {"form": form, "message":"błędne dane"})
+                return render(request, "user_login.html", {"form": form, "message":"błędne dane logowania"})
 
 
 
@@ -142,25 +148,14 @@ class BookingView(View):
     # rooms = GetRoom.get_available_room({}).exclude(id__in=self.room_booked)
 
 
+class BookingsListView(generics.ListAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('date',)
 
-    """
-    
-t = datetime.time(1, 2, 3)
-print('t :', t)
+# http://example.com/api/products?category=clothing&in_stock=True
 
-d = datetime.date.today()
-print('d :', d)
-
-dt = datetime.datetime.combine(d, t)
-print('dt:', dt)
-
-combine() creates datetime instances from one date and one time instance.
-
-$ python3 datetime_datetime_combine.py
-
-t : 01:02:03
-d : 2018-03-18
-dt: 2018-03-18 01:02:03
-
-
-    """
+class BookingDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer

@@ -15,14 +15,24 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 
-from booking_app.views import BookingView, PriceListView, AddClientView, AddTreatmentView, ClientLoginView
+from booking_app.views import BookingView, PriceListView, AddClientView, AddTreatmentView, ClientLoginView, BaseView, \
+    BookingDetailView, BookingsListView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', BaseView.as_view(), name="base"),
     url(r'^home$', PriceListView.as_view(), name="home"),
     url(r'^booking/(?P<treatment_id>(\d)+)', BookingView.as_view(), name="booking"),
     url(r'^add_client$', AddClientView.as_view(), name="add_client"),
     url(r'^user_login$', ClientLoginView.as_view(), name="user_login"),
     url(r'^add_treatment$', AddTreatmentView.as_view(), name="add_treatment"),
+    url(r'^home$', PriceListView.as_view(), name="home"),
+    url(r'^login/$', auth_views.login, {'template_name': 'base.html'}, name='login'),
+    url(r'^logout/$', auth_views.logout, name='logout'),
+
+    url(r'^apibookings/', BookingsListView.as_view()),
+    url(r'^apibooking/(?P<pk>[0-9]+)/$', BookingDetailView.as_view()),
+
 ]
