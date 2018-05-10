@@ -48,7 +48,7 @@ class BookingForm(forms.Form):
                 "autoclose": True,
             }
         ))
-    time = forms.TimeField()
+    time = forms.TimeField(widget=forms.Select)
 
 
 # "YYYY-MM-DD HH:mm",

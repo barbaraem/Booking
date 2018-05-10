@@ -310,21 +310,21 @@ $(function() {
     // Theme: Color schemes
     // ====================
 
-    var $body = $('body');
-    var sidebar = '';
-        sidebar += '<div class="sidebar">';
-        sidebar += '<div class="sidebar__toggle" role="button"><i class="ion-android-settings"></i></div>';
-        sidebar += '<h4 class="sidebar__heading page-header">Color scheme</h4>';
-        sidebar += '<ul class="sidebar__colors">';
-        sidebar += '<li data-color="orange" class="active brand-orange"><span></span></li>';
-        sidebar += '<li data-color="deep-orange" class="brand-deep-orange"><span></span></li>';
-        sidebar += '<li data-color="green" class="brand-green"><span></span></li>';
-        sidebar += '<li data-color="teal" class="brand-teal"><span></span></li>';
-        sidebar += '<li data-color="cyan" class="brand-cyan"><span></span></li>';
-        sidebar += '</ul>';
-        sidebar += '<h4 class="sidebar__heading page-header">Banner Parallax</h4>';
-        sidebar += '<button class="sidebar__parallax btn btn-block btn-default"><span class="show">Click to enable</span><span class="hidden">Click to disable</span></button>';
-        sidebar += '</div>';
+    // var $body = $('body');
+    // var sidebar = '';
+    //     sidebar += '<div class="sidebar">';
+    //     sidebar += '<div class="sidebar__toggle" role="button"><i class="ion-android-settings"></i></div>';
+    //     sidebar += '<h4 class="sidebar__heading page-header">Color scheme</h4>';
+    //     sidebar += '<ul class="sidebar__colors">';
+    //     sidebar += '<li data-color="orange" class="active brand-orange"><span></span></li>';
+    //     sidebar += '<li data-color="deep-orange" class="brand-deep-orange"><span></span></li>';
+    //     sidebar += '<li data-color="green" class="brand-green"><span></span></li>';
+    //     sidebar += '<li data-color="teal" class="brand-teal"><span></span></li>';
+    //     sidebar += '<li data-color="cyan" class="brand-cyan"><span></span></li>';
+    //     sidebar += '</ul>';
+    //     sidebar += '<h4 class="sidebar__heading page-header">Banner Parallax</h4>';
+    //     sidebar += '<button class="sidebar__parallax btn btn-block btn-default"><span class="show">Click to enable</span><span class="hidden">Click to disable</span></button>';
+    //     sidebar += '</div>';
 
     if ( !$body.hasClass('no-settings') ) {
         $body.append(sidebar);

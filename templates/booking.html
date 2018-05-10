@@ -48,19 +48,29 @@
       {{ form|bootstrap}}
       {% csrf_token %}
 
+
     </form>
 
+<body>
+
+        <div id="time_">
+            <select>
+                <option>" "</option>
+            </select>
+        </div>
+
+</body>
 
   <script>
     $("#id_date").change(function () {
         var date_ = $(this).val();
 
         $.get("http://127.0.0.1:8000/apibookings/booking?date=" + date_, function (data) {
-            console.log("sprawdzam czy pobrałam", data);
+            console.log("pobrałam:", data);
             var select = $('<select>');
             for (var i = 0; i < data.length; i++) {
                 var d = data[i];
-                console.log("DATA ", i, d)
+                console.log("DATA ", i, d);
 
                 var option = $('<option>');
                 option.text(d.time);
@@ -68,7 +78,11 @@
                 select.append(option);
             }
 
-            $("#time_").append( select );
+            var time_ =  $("#time_");
+            time_.html( select );
+{#             time.append(select);#}
+{#            time_.html( "<select>select.text()</select> ");#}
+
 
             console.log("KONIEC");
             alert("Load was performed.");
@@ -80,15 +94,12 @@
 
 
 
+
+
+
 {#$('#datetimepicker').data("DateTimePicker").FUNCTION()#}
 
-<body>
 
-        {% csrf_token %}
-        <div id="time_"> </div>
-        <input type="submit" value="Umów wizytę" />
-
-</body>
 
 {#<script>#}
 {#var u = "http://127.0.0.1:8000/apibookings/";#}

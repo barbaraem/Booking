@@ -17,8 +17,8 @@ class Booking(models.Model):
     treatment = models.ForeignKey(Treatment)
     user = models.ForeignKey(User) # może dodaj checkbox, że wyraża zgodę na użycie telefonu
 
-    # def __str__(self):
-    #     return self.date
+    def __str__(self):
+        return self.time
 
 
     def get_hours_list(self, day):
